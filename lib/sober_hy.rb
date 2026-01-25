@@ -11,7 +11,7 @@ module SoberHy
   # @return [String] The recognized 5-character string.
   def self.solve(source)
     content = if source =~ /\Ahttps?:\/\//
-                URI.open(source).read
+                URI.open(source) { |f| f.binmode; f.read }.force_encoding(Encoding::BINARY)
               else
                 source # Assume file path, handled by Decoder
               end
