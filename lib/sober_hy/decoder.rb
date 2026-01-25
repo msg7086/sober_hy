@@ -33,19 +33,20 @@ module SoberHy
       verify_dimensions!
 
       row_bg_colors = scan_row_backgrounds
-      stdc = @image[1, 1]
+      stdc1 = @image[0, 0]
+      stdc2 = @image[1, 1]
 
       state = :skip
       current_hash = SEED
       bit_count = 0
       result = String.new
 
-      (1...(EXPECTED_WIDTH - 1)).each do |x|
+      (0...EXPECTED_WIDTH).each do |x|
         (0...EXPECTED_HEIGHT).each do |y|
           pixel_color = @image[x, y]
           bg_color = row_bg_colors[y]
 
-          bit = [bg_color, stdc].include?(pixel_color) ? 0 : 1
+          bit = [bg_color, stdc1, stdc2].include?(pixel_color) ? 0 : 1
 
           if state == :skip
             next if bit == 0
