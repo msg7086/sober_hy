@@ -14,7 +14,7 @@ module SoberHy
 
     EXPECTED_WIDTH = 60
     EXPECTED_HEIGHT = 22
-    SAMPLE_X_OFFSETS = [2, 12, 13].freeze
+    SAMPLE_X_OFFSETS = [2, 3, 4, 10, 11, 12, 13].freeze
 
     SEED = 5381
     MIN_MATCH_LEN = 130
@@ -81,7 +81,7 @@ module SoberHy
 
     def scan_row_backgrounds
       (0...@image.height).map do |y|
-        SAMPLE_X_OFFSETS.map { |x| @image[x, y] }.sort[1]
+        SAMPLE_X_OFFSETS.map { |x| @image[x, y] }.tally.max_by { |number, count| count }.first
       end
     end
 
